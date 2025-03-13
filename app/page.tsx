@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Inter } from 'next/font/google';
 import * as XLSX from 'xlsx';
-/*dfsf */
+
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
@@ -36,12 +36,20 @@ export default function Home() {
                         // Convert sheet to CSV with UTF-8 encoding
                         const worksheet = workbook.Sheets[sheetName];
 
-                        // Use these options to better handle Hebrew and special characters
-                        const csvContent = XLSX.utils.sheet_to_csv(worksheet, {
-                            // Preserve all whitespace
+                        // First convert to strings format with quotes
+                        const strings = XLSX.utils.sheet_to_json(worksheet, { 
+                            header: 1,
+                            raw: false, 
+                            defval: ''
+                        });
+                        
+                        // Then create a new sheet with all fields as strings
+                        const newSheet = XLSX.utils.json_to_sheet(strings, { skipHeader: true });
+                        
+                        // Then convert to CSV with standard options
+                        const csvContent = XLSX.utils.sheet_to_csv(newSheet, {
                             blankrows: true,
-                            // Use quotes around fields that contain special characters
-                            quot: true
+                            // We'll handle quotes through the pre-processing above
                         });
 
                         // Add UTF-8 BOM to ensure Excel recognizes the encoding correctly

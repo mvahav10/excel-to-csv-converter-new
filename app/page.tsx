@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Inter } from 'next/font/google';
 import * as XLSX from 'xlsx';
-
+/*dfsf */
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
@@ -41,7 +41,7 @@ export default function Home() {
                             // Preserve all whitespace
                             blankrows: true,
                             // Use quotes around fields that contain special characters
-                            quotation: true
+                            quoteStrings: true
                         });
 
                         // Add UTF-8 BOM to ensure Excel recognizes the encoding correctly
@@ -112,7 +112,7 @@ export default function Home() {
                         <p className="text-sm">Selected file: <span className="font-semibold">{file.name}</span></p>
                     </div>
                 )}
-
+                
                 <button
                     onClick={handleUpload}
                     disabled={!file || isUploading}

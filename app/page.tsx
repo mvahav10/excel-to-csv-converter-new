@@ -41,7 +41,7 @@ export default function Home() {
                             // Preserve all whitespace
                             blankrows: true,
                             // Use quotes around fields that contain special characters
-                            quoteStrings: true
+                            quot: true
                         });
 
                         // Add UTF-8 BOM to ensure Excel recognizes the encoding correctly
